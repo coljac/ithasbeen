@@ -88,7 +88,7 @@ function App() {
         } else {
           setStatusMessage(<>Saved the thingy.<br/>
         Share the board with <a href={data.board.id}>this link.</a><span onClick={() => {copyTextToClipboard(data.board.id)}}>[copy]</span><br/>
-        Edit the board with <a href={data.board.editkey}>this link.</a><span>[copy]</span><br/>
+        Edit the board with <a href={data.board.editkey}>this link.</a><span onClick={() => {copyTextToClipboard(data.board.editkey)}}>[copy]</span><br/>
       </>)
         history.push(data.board.editkey);
         }
