@@ -18,7 +18,7 @@ export async function copyTextToClipboard(id) {
 }
 
 function App() {
-  const api_loc = "https://ithasbeen-api-q6klbgmfpa-uc.a.run.app/"
+  const api_loc = "https://ithasbeen-api-q6klbgmfpa-uc.a.run.app"
   const history = createBrowserHistory();
   const [days, setDays] = useState(0);
   const [happening, setHappening] = useState("");
@@ -73,7 +73,7 @@ function App() {
       setHappening(textv);
       setEditable(false);
       setAuto(autov);
-      const url = api_loc + "/" + boardID;
+      const url = api_loc + "/board/" + boardID;
       axios.put(url,
       {
       "id":boardID,
