@@ -106,7 +106,8 @@ function App() {
       <Header />
       <div className="content">
         <StatusMessage message={statusMessage} />
-        <NewForm editing={editable} days={days} happening={happening} statusMessage={statusMessage} doSubmit={doSubmit} />
+        <NewForm editing={editable} days={days} happening={happening} statusMessage={statusMessage} 
+        auto={auto} doSubmit={doSubmit} />
         <Display editing={editable} days={days} happening={happening} statusMessage={statusMessage} />
       </div>
     </div>
