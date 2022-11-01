@@ -77,7 +77,7 @@ async def read_board(board_id:str):
     del res['_id']
     if res['auto']:
         try:
-            print(f"{res['days']} after {res['checkpoint']} given it is {ds()} is {days_since(res['checkpoint']) + res['days']}")
+            # print(f"{res['days']} after {res['checkpoint']} given it is {ds()} is {days_since(res['checkpoint']) + res['days']}")
             res['days'] = days_since(res['checkpoint']) + res['days']
         except Exception as e:
             pass
@@ -98,7 +98,7 @@ def generate_id(length=5):
 
 @app.put("/board/{id}")
 async def create_edit_board(inboard: Board):
-    print(inboard, "<<<<")
+    # print(inboard, "<<<<")
     result = {}
     with database as db:
         boards = db['boards']

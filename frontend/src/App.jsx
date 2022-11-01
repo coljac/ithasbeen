@@ -1,13 +1,15 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import './App.css'
-import Daycount from './components/Daycount'
-import Happening from './components/Happening'
 import StatusMessage from './components/StatusMessage'
+import Header from './components/Header'
+import Copy from './components/Copy'
 import { createBrowserHistory } from "history"
+import Display from './components/Display'
+import NewForm from './components/NewForm'
 
 export async function copyTextToClipboard(id) {
-  const text = window.location.hostname + "/" + id;
+  const text = window.location.hostname + ":" + window.location.port + "/" + id;
   if ('clipboard' in navigator) {
     return await navigator.clipboard.writeText(text);
   } else {
@@ -16,6 +18,7 @@ export async function copyTextToClipboard(id) {
 }
 
 function App() {
+  const api_loc = "http://localhost:8000"
   const history = createBrowserHistory();
   const [days, setDays] = useState(0);
   const [happening, setHappening] = useState("");
@@ -25,6 +28,7 @@ function App() {
   const [editkey, setEditkey] = useState("");
   const [auto, setAuto] = useState(false);
   const [statusMessage, setStatusMessage] = useState(null);
+  const [copied, setCopied] = useState(0);
 
   const getData = function() {
     const pathname = window.location.pathname;
@@ -33,7 +37,7 @@ function App() {
       setEditable(true);
       return;
     }
-    axios.get("http://localhost:8000/board" + pathname)
+    axios.get(api_loc + "/board" + pathname)
     .then(result => {
         const data = result.data;
         // console.log(data);
@@ -86,50 +90,28 @@ function App() {
           setDays(0);
           setHappening(data.message);
         } else {
-          setStatusMessage(<>Saved the thingy.<br/>
-        Share the board with <a href={data.board.id}>this link.</a><span onClick={() => {copyTextToClipboard(data.board.id)}}>[copy]</span><br/>
-        Edit the board with <a href={data.board.editkey}>this link.</a><span onClick={() => {copyTextToClipboard(data.board.editkey)}}>[copy]</span><br/>
+          setStatusMessage(<>Saved the board.<br/>
+        Share the board with <a href={data.board.id}>this link.</a><Copy id={data.board.id} /><br/>
+        Edit the board with <a href={data.board.editkey}>this link.</a> <Copy id={data.board.editkey} /><br/>
       </>)
         history.push(data.board.editkey);
         }
       })
     .catch(error => {console.error(error); setVisible(true);})
-      // redirect
     }
   }
 
-  if(editable) {
-    return (
-    <div className="App" style={{visibility: visible?"visible":"hidden"}}>
-      <StatusMessage message={statusMessage} />
-      <form onSubmit={doSubmit}>
-        <h2>It has been</h2>
-        <input type="number" defaultValue={days} size="4" /><br/>
-        <div className="checbox">
-          Update automatically: <input type="checkbox" defaultChecked={auto} />
-        </div>
-        {/* <Daycount count={count} editable={editable} /> */}
-        <h2>days since</h2>
-        <input type="text" defaultValue={happening} size="40" />
-        <br/>
-        <br/>
-        {/* <Happening text={happening} editable={editable} /> */}
-        <button type='submit'>
-          Save
-        </button>
-      </form>
-    </div>
-    )
-  }
   return (
     <div className="App" style={{visibility: visible?"visible":"hidden"}}>
-      <StatusMessage message={statusMessage} />
-      <h2>It has been</h2>
-       <Daycount count={days} editable={editable} />
-      <h2>days since</h2>
-      <Happening text={happening} editable={editable} />
+      <Header />
+      <div className="content">
+        <StatusMessage message={statusMessage} />
+        <NewForm editing={editable} days={days} happening={happening} statusMessage={statusMessage} doSubmit={doSubmit} />
+        <Display editing={editable} days={days} happening={happening} statusMessage={statusMessage} />
+      </div>
     </div>
   )
+
 }
 
 export default App
