@@ -58,7 +58,6 @@ def days_since(checkpoint):
     return delta.days
 
 
-
 @app.get("/board/{board_id}")
 async def read_board(board_id:str):
     res = None
@@ -81,7 +80,7 @@ async def read_board(board_id:str):
     del res['_id']
     if res['auto']:
         try:
-            # print(f"{res['days']} after {res['checkpoint']} given it is {ds()} is {days_since(res['checkpoint']) + res['days']}")
+            print(f"{res['days']} after {res['checkpoint']} given it is {ds()} is {days_since(res['checkpoint']) + res['days']}")
             res['days'] = days_since(res['checkpoint']) + res['days']
         except Exception as e:
             pass
@@ -93,9 +92,28 @@ async def read_board(board_id:str):
     # with database as db:
         # return db.all()[skip:skip+limit]
 
-@app.put("/setcount/{board_id}")
-async def reset_board(days: int=0, id: str="", editkey: str=""):
-    return create_edit_board(days=days, id=id, editkey=editkey)
+@app.get("/setcount/{board_id}")
+async def reset_board(board_id: str, days: int=0, editkey: str=""):
+    with database as db:
+        boards = db['boards']
+        query = {"id": board_id}
+        result = boards.find(query)
+        try:
+            brd = result[0]
+        except:
+            return {
+                "status": "error",
+                "message": "no such board"
+            }
+        if editkey != brd['editkey']:
+            return {
+                "status": "error",
+                "message": "incorrect edit key"
+            }
+        boards.update_one({"editkey": editkey, "id": board_id}, {"$set": {"days": days, "checkpoint": ds()}})
+        return {
+            "status": "OK"
+        }
 
 def generate_id(length=5):
     return ''.join(random.choice(string.ascii_letters + string.digits) for i in range(length))
