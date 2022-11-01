@@ -25,6 +25,10 @@ database = Database()
 
 origins = [
     "http://localhost",
+    "http://ithasbeen.xyz",
+    "https://ithasbeen.xyz",
+    "https://ithasbeen-3bfeb.web.app",
+    "http://localhost:5173",
     "http://localhost:5174",
     "http://localhost:5175",
     "http://localhost:5176",

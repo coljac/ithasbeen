@@ -9,7 +9,7 @@ import Display from './components/Display'
 import NewForm from './components/NewForm'
 
 export async function copyTextToClipboard(id) {
-  const text = window.location.hostname + ":" + window.location.port + "/" + id;
+  const text = window.location.host + "/" + id;
   if ('clipboard' in navigator) {
     return await navigator.clipboard.writeText(text);
   } else {
@@ -18,7 +18,7 @@ export async function copyTextToClipboard(id) {
 }
 
 function App() {
-  const api_loc = "http://localhost:8000"
+  const api_loc = "https://ithasbeen-api-q6klbgmfpa-uc.a.run.app/"
   const history = createBrowserHistory();
   const [days, setDays] = useState(0);
   const [happening, setHappening] = useState("");
@@ -73,7 +73,7 @@ function App() {
       setHappening(textv);
       setEditable(false);
       setAuto(autov);
-      const url = "http://localhost:8000/board/"+boardID;
+      const url = api_loc + "/" + boardID;
       axios.put(url,
       {
       "id":boardID,
