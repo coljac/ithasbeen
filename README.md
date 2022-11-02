@@ -6,5 +6,5 @@ obsolescence. This simple app is my attempt to brush up and learn the FARM stack
 
 You can access the app and make a board at [ithasbeen.xyz](http://ithasbeen.xyz). It makes a clean and simple page that says how many days it's been 
 since something happened. You can update the number manually, automatically as time passes, and/or set the number via a rest API. 
-For the latter, hit `https://ithasbeen.xyz/api/<boardid>/days=<days>&editkey=<editkey>`. The board ID and editkey respectively are 
+For the latter, hit `https://api.ithasbeen.xyz/setcount/<boardid>?days=<days>&editkey=<editkey>`. The board ID and editkey respectively are 
 the string at the end of the display and edit links in the URL of the page you made. 
