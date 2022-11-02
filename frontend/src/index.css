@@ -69,16 +69,34 @@ button:focus-visible {
   }
 }
 
+
+.squish {
+  display: inline-block;
+}
+
 #count {
   font-size: 200%;
+  display: flex;
   margin: auto;
-  display: inline-block;
-  text-align: center;
-  line-height: 40px;
-  padding: 15px 10px 10px 10px;
-  border: 1px solid black;
+  padding: 1vh 2vh 0vh 2vh;
+  align-items: center;
+  justify-content: center;
+  max-width: 200px;
+  height: 11vh;
   background: #eeeeee;
+  border: 1px solid black;
   transform: rotate(5deg);
+}
+
+.input-text {
+   font-size:3vh;
+   height:4vh;
+   margin-bottom: 2vh;
+}
+
+.input-check {
+  width: 3vh;
+  height: 3vh;
 }
 
 #happening {
@@ -125,4 +143,5 @@ button:focus-visible {
     left: 0;
     right: 0;
     margin: auto;
+    font-size: 3vh;
 }

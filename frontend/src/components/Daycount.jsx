@@ -5,6 +5,8 @@ export default function Daycount(props) {
         </div>
     )
     return (
+        <div className="squish">
         <div id="count">{new Intl.NumberFormat().format(props.count)}</div>
+</div>
     )
 }

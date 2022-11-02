@@ -49,13 +49,14 @@ export default function NewForm(props) {
     return (
     <form onSubmit={props.doSubmit}>
         <h2>It has been</h2>
-        <input type="number" defaultValue={days} size="4" /><br/>
-        <div className="checkbox">
-          Update automatically: <input type="checkbox" defaultChecked={auto} />
-        </div>
+        <input type="number" defaultValue={days} size="4" className="input-text"/>
         <h2>days since</h2>
-        <input type="text" defaultValue={happening} size="40" />
+        <input type="text" defaultValue={happening} size="40" className="input-text" />
         <br/>
+        <br/>
+        <span className="checkbox">
+          Update automatically: <input type="checkbox" defaultChecked={auto} className="input-check" />
+        </span>
         <br/>
         <button type='submit'>
           Save

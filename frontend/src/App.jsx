@@ -65,8 +65,8 @@ function App() {
     e.preventDefault();
     // console.log("Submitted!")
     const daysv = e.target.elements[0].value;
-    const autov = e.target.elements[1].checked;
-    const textv = e.target.elements[2].value;
+    const textv = e.target.elements[1].value;
+    const autov = e.target.elements[2].checked;
     if(textv.length > 0) {
       // save
       setDays(daysv);
